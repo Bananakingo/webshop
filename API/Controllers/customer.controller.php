@@ -1,17 +1,18 @@
 <?php
-
-function arrayConverter($result) {
-    
-
-}
+include('API\dbconnection.php');
+include('API\datafactory.php');
 
 function getAllCustomers($connection)
 {
+    // Prepare query string with klantnr passed as variable
+
     $queryString = "SELECT * FROM klant";
 
-    $data = mysqli_query($connection, $queryString);
-    $result = mysqli_fetch_all($data);
-    return $result;
+    $result = mysqli_query($connection, $queryString);
+
+    //printRecords($result);
+
+    return $result; 
 }
 
 
@@ -19,11 +20,23 @@ function getCustomer($connection, $customerId)
 {
     $queryString = "SELECT * FROM klant WHERE klantnr = $customerId";
 
-    $data = mysqli_query($connection, $queryString);
-    $result = mysqli_fetch_all($data);
+    $result = mysqli_query($connection, $queryString);
+
+    //printRecords($result);
+
     return $result;
 }
 
-function createCustomer($connection, $customer) {
-    $queryString = "UPDATE Klant SET voornaam=?, achternaam=?, postcode=?, telefoonnummer=?, straat=?, huisnummer=?, plaats=?, klantType=?, land=?, emailContactpersoon=? WHERE KlantID = ?;";
+function createCustomer($connection, $customer)
+{
+    $naam = $customer[0];
+    $adres = $customer[1];
+    $postcode = $customer[2];
+    $plaats = $customer[3];
+    $emailadres = $customer[4];
+    $password = $customer[5];
+     
+    $queryString = "INSERT INTO Klant (klantnr, naam, adres, postcode, plaats, emailadres, password) VALUES ($naam, $adres, $postcode, $plaats, $emailadres, $password)";
 }
+
+?>

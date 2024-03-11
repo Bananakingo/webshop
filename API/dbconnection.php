@@ -2,23 +2,31 @@
 
 // File contains function that connects to localhost database. 
 // Returns Connection query when called.
-function setConnection() {
+// Contains global variables for connect query
 
-	$DB_HOST = 'localhost';
-	$DB_NAME = 'avansperiode3';
-	$DB_USER = 'root';
-	$DB_PASS = '';
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'avansperiode3';
 
-	$connection = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+function setConnection()
+{
+	global $host, $user, $pass, $db;
+	$connection = mysqli_connect($host, $user, $pass, $db) ;
+
+	$status = mysqli_get_links_stats();
+	$connectionstat = mysqli_get_connection_stats($connection);
 
 	if ($connection == false) {
 		printf("Er kan geen verbinding worden gemaakt met de database. Foutmelding: %s\n", mysqli_connect_error());
 	} else {
-		echo "Verbinding geslaagd";
-		echo "<br><br>";
+		// echo "Verbinding geslaagd | status: <br><br> Link status<br>";
+		// print lines for debugging.
+		// foreach ($status as $x => $y) { "$x: $y <br>"; };
+		// print_r($connection) ;
 		return $connection;
 	}
 
 }
 
-setConnection();
+?>
