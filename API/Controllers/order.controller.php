@@ -1,10 +1,12 @@
 <?php
 
 // Get all orders
-function getOrders($connection)
-{
-    $query = "SELECT * FROM bestelling";
+// function getOrders($connection)
+// {
+//     $query = "SELECT * FROM bestelling";
 
-    $getData = mysqli_query($connection, $query);
-    testData($getData);
-}
+//     $getData = mysqli_query($connection, $query);
+//     testData($getData);
+// }
+
+?>
