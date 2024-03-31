@@ -9,7 +9,8 @@ $page_title = "Bosch Abrasives";
 $page_subtitle = "Schuurmiddelen voor elke toepassing";
 $active = 1;
  
-include 'pages/header.html';
+include 'header.html';
+
 
 // Test functions
 // getAllCustomers( setConnection() );
@@ -40,5 +41,7 @@ include 'pages/header.html';
 // }
 
 printProducts( getAllProducts( setConnection() ) );
+
+include 'pages\footer.html';
 
 ?>

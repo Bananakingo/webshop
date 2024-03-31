@@ -1,0 +1,39 @@
+<?php session_start(); ?>
+
+<html>
+
+<head>
+    <title> <?php echo $page_title; ?> </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $("#slideshow > div:gt(0)").hide();
+            setInterval(function() {
+                $('#slideshow > div:first')
+                .fadeOut(1000)
+                .next()
+                .fadeIn(1000)
+                .end()
+                .appendTo('#slideshow');
+            }, 5000); 
+        })
+        </script>
+
+</head>
+<body>
+    <div id="header">
+        <h1> <?php echo $page_title; ?> </h1>
+        <h2> <?php echo $page_subtitle; ?> </h2>
+    </div>
+
+    <nav>
+        <li<php if (active = "1") {class = "active"} ?><a href="index.php">Start</a></li>
+            <li<php if (active = "2") {class = "active"} ?><a href="about.php">Over ons</a></li>
+            <li<php if (active = "3") {class = "active"} ?><a href="contact_form.php">Contact</a></li>
+    </nav>
+        <!--
+            Overige content
+        -->

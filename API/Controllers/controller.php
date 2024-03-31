@@ -1,12 +1,12 @@
 <?php
-include('API\dbconnection.php');
+include ('C:\xampp\htdocs\avans\webshop\API\dbconnection.php');
 
 // get functions return queried table, create and update functions write to database
 // DataFactory does row by row iterations for displaying data and doing needed transformations
 
 function getAllCustomers($connection)
 {
-    // Prepare query string with klantnr passed as variable
+    // Prepare query string
 
     $queryString = "SELECT * FROM klant";
 
@@ -14,7 +14,7 @@ function getAllCustomers($connection)
 
     //printRecords($result);
 
-    return $result; 
+    return $result;
 }
 
 
@@ -37,9 +37,9 @@ function createCustomer($connection, $customer)
     $plaats = $customer[3];
     $emailadres = $customer[4];
     $password = $customer[5];
-     
-    $queryString = 
-    "INSERT INTO Klant (klantnr, naam, adres, postcode, plaats, emailadres, password) 
+
+    $queryString =
+        "INSERT INTO Klant (klantnr, naam, adres, postcode, plaats, emailadres, password) 
     VALUES ($naam, $adres, $postcode, $plaats, $emailadres, $password)";
 }
 
@@ -47,22 +47,29 @@ function getAllProducts($connection)
 {
     // Prepare query string with klantnr passed as variable
 
-    $queryString = 
-    "SELECT *, product_afbeelding.image_id 
-    FROM product, product_afbeelding 
-    WHERE product.productnummer = product_afbeelding.productnummer 
-    GROUP BY productnaam ORDER BY productnaam";
+    $queryString = "SELECT 
+    `product`.`productnummer`, 
+    `product`.`productnaam`, 
+    `product`.`prijs`, 
+    `product`.`beschrijving`,
+    `product`.`leverbaar`, 
+    `product`.`voorraad`, 
+    `product_afbeelding`.`image_id`
+    FROM `product`, `product_afbeelding`
+    WHERE `product`.`productnummer` = `product_afbeelding`.`productnummer`
+    GROUP BY `productnaam`
+    ORDER BY `productnaam`;";
 
     $result = mysqli_query($connection, $queryString);
 
     //printRecords($result);
-    return $result; 
+    return $result;
 }
 
 function getProduct($connection, $productId)
 {
-    $queryString = 
-    "SELECT
+    $queryString =
+        "SELECT
     product.productnummer, 
     product.productnaam, 
     product.prijs, 
@@ -83,19 +90,19 @@ function getProduct($connection, $productId)
     return $result;
 }
 
-function getImages($connection, $productId)
+function getImages($connection, $image_id)
 {
 
     // Images need an index column to prioritise images if count > 1
-    $queryString = 
-    "SELECT 
+    $queryString =
+        "SELECT 
         product.productnummer AS 'product.productnummer', 
         product_afbeelding.productnummer AS 'product_afbeelding.productnummer', 
         afbeelding.image_id AS 'afbeelding.image_id' 
         FROM product 
         INNER JOIN product_afbeelding ON product.productnummer = product_afbeelding.productnummer 
         INNER JOIN afbeelding ON product_afbeelding.image_id = afbeelding.image_id 
-        WHERE product.productnummer = $productId; 
+        WHERE product.productnummer = $image_id; 
     ";
 
     $result = mysqli_query($connection, $$queryString);
@@ -103,6 +110,40 @@ function getImages($connection, $productId)
     return $result;
 
 }
+
+function getTopImage($connection, $productId)
+{
+    $queryString =
+        "SELECT 
+            product.productnummer AS 'product.productnummer', 
+            afbeelding.image AS 'image',
+            product_afbeelding.productnummer AS 'product_afbeelding.productnummer', 
+            MIN(afbeelding.image_id) AS 'afbeelding.image_id',
+            FROM product 
+            INNER JOIN product_afbeelding ON product.productnummer = product_afbeelding.productnummer 
+            INNER JOIN afbeelding ON product_afbeelding.image_id = afbeelding.image_id 
+            WHERE product.productnummer = $productId;";
+
+    $result = mysqli_query($connection, $$queryString);
+
+    return $result;
+}
+
+// function createForm($connection, $form) {
+
+//     $firstname = $form["firstname"];
+//     $lastname = $form["lastname"];
+//     $companyname = $form["company"];
+//     $straat = $form["straat"];
+//     $plaats = $form["plaats"];
+//     $postcode = $form["postcode"];
+//     $huisnummer = $form["huisnummer"];
+//     $testuser = $form["testuser"];
+
+//     $queryString = 
+//     "INSERT INTO Formulier (firstname, lastname, companyname, straat, plaats, postcode, huisnummer, testuser)
+//     VALUES ($firstname, $lastname, $companyname, $straat, $plaats, $postcode, $huisnummer, $testuser)";
+// }
 
 // function createCustomer($connection, $customer)
 // {
@@ -112,19 +153,19 @@ function getImages($connection, $productId)
 //     $plaats = $customer[3];
 //     $emailadres = $customer[4];
 //     $password = $customer[5];
-     
+
 //     $queryString = 
 //     "INSERT INTO Klant (klantnr, naam, adres, postcode, plaats, emailadres, password) 
 //     VALUES ($naam, $adres, $postcode, $plaats, $emailadres, $password)";
 // }
 
-function updateInventory($connection, $productId) 
+function updateInventory($connection, $productId)
 {
     // $queryString = 
-    
+
 }
 
-function createTransaction($connection, $transaction) 
+function createTransaction($connection, $transaction)
 {
     // 
 }
