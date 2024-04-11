@@ -11,14 +11,13 @@ class GetTeamDataTest extends TestCase
         // Dit stukje code is de voorbereiding voor onze test. We beginnen met het opzetten van een verbinding met onze database.
         // 'Connect.php' is een bestand waar de details voor de verbinding met de database staan.
         // Tip: Vergeet niet 'Connect.php' aan te passen aan jouw eigen database setup.
-        include 'API/dbconnection.php';
+        include '\API\dbconnection.php';
         $this->conn = setConnection(); // We slaan onze databaseverbinding op in een variabele voor later gebruik.
     }
 
-    public function testProduct()
+    public function testProduct() // We testen of de waarden van het opgehaalde product kloppen
     {
-        // We gaan nu testen of we teamgegevens correct kunnen ophalen met een team ID.
-        $productId = 111; // Dit is het ID van het team dat we willen ophalen.
+        $productId = 111; // product ID om te testen
         
         // We roepen een functie aan die de gegevens van het team ophaalt. Dit is de functie die we willen testen.
         $result = $this->getProduct($productId);
@@ -34,10 +33,13 @@ class GetTeamDataTest extends TestCase
     protected function getProduct($productId)
     {
         // Voorgedefinieerde waarde voor tests, simuleert ophalen van tabel uit database
+
+        
+
         return [
             "productid" => "111",
             "leverbaar" => "ja",
-            "voorrad" => "12",
+            "voorraad" => "12",
             "Beschrijving" => "Lorem ipsum"
         ];
     }

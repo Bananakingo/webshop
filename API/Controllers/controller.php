@@ -1,10 +1,10 @@
 <?php
-include ('C:\xampp\htdocs\avans\webshop\API\dbconnection.php');
+include 'API\dbconnection.php';
 
 // get functions return queried table, create and update functions write to database
 // DataFactory does row by row iterations for displaying data and doing needed transformations
 
-function getAllCustomers($connection)
+function getAllCustomers($connection)   
 {
     // Prepare query string
 

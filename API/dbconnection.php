@@ -1,5 +1,4 @@
 <?php
-
 // File contains function that connects to localhost database. 
 // Returns Connection query when called.
 // Contains global variables for connect query

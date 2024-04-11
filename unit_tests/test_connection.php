@@ -8,7 +8,7 @@ class ConnectTest extends TestCase
     {
         // We beginnen met het opnemen van het 'connect.php' bestand, dat de databaseconnectieparameters bevat.
         // Dit is belangrijk om ervoor te zorgen dat de parameters die we gebruiken om te verbinden met de database correct zijn ingesteld.
-        include 'connect.php';
+        include '\API\dbconnection.php';
 
         // Vervolgens controleren we of elke parameter - host, gebruikersnaam, wachtwoord, en databasenaam - correct is ingesteld.
         // Deze waarden zijn cruciaal voor het succesvol verbinden met onze database.
@@ -21,7 +21,7 @@ class ConnectTest extends TestCase
     public function testDatabaseConnection()
     {
         // Opnieuw, we nemen 'Connect.php' op om onze databaseverbinding op te zetten.
-        include 'dbconnection.php';
+        include '\API\dbconnection.php';
 
         // Nu controleren we of de variabele $conn daadwerkelijk een mysqli-object is.
         // Dit bevestigt dat onze verbinding met de database een geldig mysqli-object teruggeeft.

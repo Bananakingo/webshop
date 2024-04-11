@@ -5,46 +5,49 @@
 error_reporting(E_ERROR | E_PARSE);
 
 // Set up header page
-$page_title = "Bosch Abrasives";
+$page_title = "OMNIGRIT";
 $page_subtitle = "Meld u aan als test gebruiker";
 
 include 'API\Controllers\controller.php';
 include 'header.html';
 
-?> 
-
+?>
 <html lang="en">
-    <div class="form">
-        <!-- <form action="" method="post"> -->
-        <!-- <input name="firstname" value=""> -->
+<div class="indexwrapper">
+    <div class="index">
+        <div class="form">
+            <!-- <form action="" method="post"> -->
+            <!-- <input name="firstname" value=""> -->
+            <form action="API\Controllers\push_form.php" method="post">
 
-        <form action="API\Controllers\push_form.php" method="post">
+                <label for="firstname">Voornaam</label>
+                <input type="text" name="firstname" id="firstname">
 
-            <label for="firstname">Voornaam</label> 
-            <input type="text" name="firstname" id="firstname">
+                <label for="lastname">Achternaam</label>
+                <input type="text" name="lastname" id="lastname">
 
-            <label for="lastname">Achternaam</label> 
-            <input type="text" name="lastname" id="lastname">
+                <label for="companyname">Bedrijfsnaam</label>
+                <input type="text" name="companyname" id="companyname">
 
-            <label for="companyname">Bedrijfsnaam</label> 
-            <input type="text" name="companyname" id="companyname">
+                <label for="straat">Straat</label>
+                <input type="text" name="straat" id="straat">
 
-            <label for="straat">Straat</label> 
-            <input type="text" name="straat" id="straat">
+                <label for="plaats">Plaats</label>
+                <input type="text" name="plaats" id="plaats">
 
-            <label for="plaats">Plaats</label> 
-            <input type="text" name="plaats" id="plaats">
+                <label for="postcode">Postcode</label>
+                <input type="text" name="postcode" id="postcode">
 
-            <label for="postcode">Postcode</label> 
-            <input type="text" name="postcode" id="postcode">
+                <label for="huisnummer">Huisnummer</label>
+                <input type="number" name="huisnummer" id="huisnummer">
 
-            <label for="huisnummer">Huisnummer</label> 
-            <input type="number" name="huisnummer" id="huisnummer">
+                <input type="submit" value="Verzenden" size="4" id="submit">
 
-            <input type="submit" value="Verzenden" size="4" id="submit">
-            
-        </form>
+            </form>
+        </div>
     </div>
+</div>
+
 </html>
 
 <?php

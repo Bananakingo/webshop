@@ -11,7 +11,7 @@ class GetTeamDataTest extends TestCase
         // Dit stukje code is de voorbereiding voor onze test. We beginnen met het opzetten van een verbinding met onze database.
         // 'Connect.php' is een bestand waar de details voor de verbinding met de database staan.
         // Tip: Vergeet niet 'Connect.php' aan te passen aan jouw eigen database setup.
-        include 'API/dbconnection.php';
+        include '\API\dbconnection.php';
         $this->conn = setConnection(); // We slaan onze databaseverbinding op in een variabele voor later gebruik.
     }
 

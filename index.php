@@ -1,11 +1,11 @@
 <?php
-include 'api\dataFactory.php';
+include 'API\dataFactory.php';
 
 // Only give errors
 error_reporting(E_ERROR | E_PARSE);
 
 // Set up header page
-$page_title = "Bosch Abrasives";
+$page_title = "OMNIGRIT";
 $page_subtitle = "Schuurmiddelen voor elke toepassing";
 $active = 1;
  
@@ -42,6 +42,6 @@ include 'header.html';
 
 printProducts( getAllProducts( setConnection() ) );
 
-include 'pages\footer.html';
+include 'footer.html';
 
 ?>
