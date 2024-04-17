@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2022 at 08:35 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Gegenereerd op: 17 apr 2024 om 11:20
+-- Serverversie: 10.4.32-MariaDB
+-- PHP-versie: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `webwinkel`
+-- Database: `avansperiode3`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `afbeelding`
+-- Tabelstructuur voor tabel `afbeelding`
 --
 
 CREATE TABLE `afbeelding` (
@@ -34,10 +34,10 @@ CREATE TABLE `afbeelding` (
   `image_size` varchar(25) NOT NULL,
   `image_ctgy` varchar(25) NOT NULL,
   `image_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `afbeelding`
+-- Gegevens worden geëxporteerd voor tabel `afbeelding`
 --
 
 INSERT INTO `afbeelding` (`image_id`, `image_type`, `image`, `image_size`, `image_ctgy`, `image_name`) VALUES
@@ -56,7 +56,7 @@ INSERT INTO `afbeelding` (`image_id`, `image_type`, `image`, `image_size`, `imag
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bestelling`
+-- Tabelstructuur voor tabel `bestelling`
 --
 
 CREATE TABLE `bestelling` (
@@ -65,10 +65,10 @@ CREATE TABLE `bestelling` (
   `besteldatum` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` enum('open','betaald','verzonden') DEFAULT 'open',
   `totaalprijs` decimal(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `bestelling`
+-- Gegevens worden geëxporteerd voor tabel `bestelling`
 --
 
 INSERT INTO `bestelling` (`bestelnummer`, `klantnummer`, `besteldatum`, `status`, `totaalprijs`) VALUES
@@ -83,7 +83,7 @@ INSERT INTO `bestelling` (`bestelnummer`, `klantnummer`, `besteldatum`, `status`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bestelregel`
+-- Tabelstructuur voor tabel `bestelregel`
 --
 
 CREATE TABLE `bestelregel` (
@@ -91,30 +91,59 @@ CREATE TABLE `bestelregel` (
   `productnummer` int(10) NOT NULL,
   `productprijs` decimal(5,2) NOT NULL,
   `aantal_besteld` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `bestelregel`
+-- Gegevens worden geëxporteerd voor tabel `bestelregel`
 --
 
 INSERT INTO `bestelregel` (`bestelnummer`, `productnummer`, `productprijs`, `aantal_besteld`) VALUES
-(1, 111, '0.00', 13),
-(2, 111, '0.00', 3),
-(2, 333, '0.00', 2),
-(2, 444, '0.00', 1),
-(3, 111, '0.00', 1),
-(4, 111, '0.00', 2),
-(4, 444, '0.00', 1),
-(5, 444, '0.00', 1),
-(5, 888, '0.00', 1),
-(6, 111, '0.00', 1),
-(6, 666, '0.00', 1),
-(7, 111, '0.00', 1);
+(1, 111, 0.00, 13),
+(2, 111, 0.00, 3),
+(2, 333, 0.00, 2),
+(2, 444, 0.00, 1),
+(3, 111, 0.00, 1),
+(4, 111, 0.00, 2),
+(4, 444, 0.00, 1),
+(5, 444, 0.00, 1),
+(5, 888, 0.00, 1),
+(6, 111, 0.00, 1),
+(6, 666, 0.00, 1),
+(7, 111, 0.00, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `klant`
+-- Tabelstructuur voor tabel `formulier`
+--
+
+CREATE TABLE `formulier` (
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `companyname` varchar(255) NOT NULL,
+  `straat` varchar(255) NOT NULL,
+  `plaats` varchar(255) NOT NULL,
+  `postcode` varchar(255) NOT NULL,
+  `huisnummer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `formulier`
+--
+
+INSERT INTO `formulier` (`firstname`, `lastname`, `companyname`, `straat`, `plaats`, `postcode`, `huisnummer`) VALUES
+('lkj', 'lkj', ';lhh', ';lkhjg', ';,jhgkj', 'lkjh;lh', '5'),
+('lkj', 'lkj', ';lhh', ';lkhjg', ';,jhgkj', 'lkjh;lh', '5'),
+('lkj', 'lkj', ';lhh', ';lkhjg', ';,jhgkj', 'lkjh;lh', '5'),
+('lkj', 'lkj', ';lhh', ';lkhjg', ';,jhgkj', 'lkjh;lh', '5'),
+('testvoornaam', 'testachternaam', 'bedrijfsnaam', 'straat', 'plaats', 'postcode', '5'),
+('testvoornaam', 'testachternaam', 'bedrijfsnaam', 'straat', 'plaats', 'postcode', '5'),
+('asd', 'asdf', 'asdf', 'asdf', 'ssdf', 'asdf', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `klant`
 --
 
 CREATE TABLE `klant` (
@@ -125,10 +154,10 @@ CREATE TABLE `klant` (
   `plaats` varchar(40) NOT NULL,
   `emailadres` varchar(60) NOT NULL,
   `password` char(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `klant`
+-- Gegevens worden geëxporteerd voor tabel `klant`
 --
 
 INSERT INTO `klant` (`klantnr`, `naam`, `adres`, `postcode`, `plaats`, `emailadres`, `password`) VALUES
@@ -140,7 +169,7 @@ INSERT INTO `klant` (`klantnr`, `naam`, `adres`, `postcode`, `plaats`, `emailadr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Tabelstructuur voor tabel `product`
 --
 
 CREATE TABLE `product` (
@@ -150,36 +179,36 @@ CREATE TABLE `product` (
   `beschrijving` varchar(9999) NOT NULL,
   `leverbaar` enum('ja','nee') DEFAULT NULL,
   `voorraad` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `product`
+-- Gegevens worden geëxporteerd voor tabel `product`
 --
 
 INSERT INTO `product` (`productnummer`, `productnaam`, `prijs`, `beschrijving`, `leverbaar`, `voorraad`) VALUES
-(111, 'Telefoon 1', '299.95', 'Hier de beschrijving van dit product.', 'ja', 12),
-(222, 'Telefoon 2', '399.95', 'Hier de beschrijving van dit product.', 'ja', 24),
-(333, 'Telefoon 3', '249.95', 'Hier de beschrijving van dit product.', 'ja', 124),
-(444, 'Telefoon 4', '89.95', 'Hier de beschrijving van dit product.', 'nee', 14),
-(555, 'Telefoon 5', '189.95', 'Hier de beschrijving van dit product.', 'ja', 11),
-(666, 'Telefoon 6', '289.95', 'Hier de beschrijving van dit product.', 'ja', 34),
-(777, 'Telefoon 7', '249.95', 'Hier de beschrijving van dit product.', 'ja', 23),
-(888, 'Telefoon 8', '529.95', 'Hier de beschrijving van dit product.', 'ja', 56),
-(999, 'Telefoon 9', '339.95', 'Hier de beschrijving van dit product.', 'nee', 2);
+(111, 'Telefoon 1', 299.95, 'Hier de beschrijving van dit product.', 'ja', 12),
+(222, 'Telefoon 2', 399.95, 'Hier de beschrijving van dit product.', 'ja', 24),
+(333, 'Telefoon 3', 249.95, 'Hier de beschrijving van dit product.', 'ja', 124),
+(444, 'Telefoon 4', 89.95, 'Hier de beschrijving van dit product.', 'nee', 14),
+(555, 'Telefoon 5', 189.95, 'Hier de beschrijving van dit product.', 'ja', 11),
+(666, 'Telefoon 6', 289.95, 'Hier de beschrijving van dit product.', 'ja', 34),
+(777, 'Telefoon 7', 249.95, 'Hier de beschrijving van dit product.', 'ja', 23),
+(888, 'Telefoon 8', 529.95, 'Hier de beschrijving van dit product.', 'ja', 56),
+(999, 'Telefoon 9', 339.95, 'Hier de beschrijving van dit product.', 'nee', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_afbeelding`
+-- Tabelstructuur voor tabel `product_afbeelding`
 --
 
 CREATE TABLE `product_afbeelding` (
   `productnummer` int(10) NOT NULL,
   `image_id` tinyint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `product_afbeelding`
+-- Gegevens worden geëxporteerd voor tabel `product_afbeelding`
 --
 
 INSERT INTO `product_afbeelding` (`productnummer`, `image_id`) VALUES
@@ -201,75 +230,75 @@ INSERT INTO `product_afbeelding` (`productnummer`, `image_id`) VALUES
 (999, 2);
 
 --
--- Indexes for dumped tables
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `afbeelding`
+-- Indexen voor tabel `afbeelding`
 --
 ALTER TABLE `afbeelding`
   ADD KEY `image_id` (`image_id`);
 
 --
--- Indexes for table `bestelling`
+-- Indexen voor tabel `bestelling`
 --
 ALTER TABLE `bestelling`
   ADD PRIMARY KEY (`bestelnummer`,`klantnummer`);
 
 --
--- Indexes for table `bestelregel`
+-- Indexen voor tabel `bestelregel`
 --
 ALTER TABLE `bestelregel`
   ADD PRIMARY KEY (`bestelnummer`,`productnummer`);
 
 --
--- Indexes for table `klant`
+-- Indexen voor tabel `klant`
 --
 ALTER TABLE `klant`
   ADD PRIMARY KEY (`emailadres`),
   ADD KEY `klantnr` (`klantnr`);
 
 --
--- Indexes for table `product`
+-- Indexen voor tabel `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`productnummer`);
 
 --
--- Indexes for table `product_afbeelding`
+-- Indexen voor tabel `product_afbeelding`
 --
 ALTER TABLE `product_afbeelding`
   ADD PRIMARY KEY (`productnummer`,`image_id`),
   ADD KEY `fk_afbeelding` (`image_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `afbeelding`
+-- AUTO_INCREMENT voor een tabel `afbeelding`
 --
 ALTER TABLE `afbeelding`
   MODIFY `image_id` tinyint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `bestelling`
+-- AUTO_INCREMENT voor een tabel `bestelling`
 --
 ALTER TABLE `bestelling`
   MODIFY `bestelnummer` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `klant`
+-- AUTO_INCREMENT voor een tabel `klant`
 --
 ALTER TABLE `klant`
   MODIFY `klantnr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Beperkingen voor geëxporteerde tabellen
 --
 
 --
--- Constraints for table `product_afbeelding`
+-- Beperkingen voor tabel `product_afbeelding`
 --
 ALTER TABLE `product_afbeelding`
   ADD CONSTRAINT `product_afbeelding_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `afbeelding` (`image_id`) ON UPDATE CASCADE;
