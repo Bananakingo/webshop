@@ -1,8 +1,6 @@
 <?php
-// mysqli_connect.php bevat de inloggegevens voor de database.
-// Per server is er een apart inlogbestand - localhost vs. remote server
-include ('includes/mysqli_connect_'.$_SERVER['SERVER_NAME'].'.php');
-
+// dbconnection.php used to connect to database
+include 'dbconnection.php' ;
 
 /*** some basic sanity checks ***/
 if(filter_has_var(INPUT_GET, "image_id") !== false && filter_input(INPUT_GET, 'image_id', FILTER_VALIDATE_INT) !== false)
@@ -10,34 +8,35 @@ if(filter_has_var(INPUT_GET, "image_id") !== false && filter_input(INPUT_GET, 'i
     /*** assign the image id ***/
     $image_id = filter_input(INPUT_GET, "image_id", FILTER_SANITIZE_NUMBER_INT);
     try     {
-        /*** connect to the database ***/
-        $dbh = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASSWORD);
+
+        // set database connection to dbh
+        $dbh = new PDO(setConnection());
 
         /*** set the PDO error mode to exception ***/
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        /*** The sql statement ***/
+        // query for database
         $sql = "SELECT image, image_type FROM afbeelding WHERE image_id=$image_id";
 
-        /*** prepare the sql ***/
+        // prepare statement 
         $stmt = $dbh->prepare($sql);
 
-        /*** exceute the query ***/
+        // execute statement
         $stmt->execute(); 
 
-        /*** set the fetch mode to associative array ***/
+        // fetch associative array
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-        /*** set the header for the image ***/
+        // set header for image
         $array = $stmt->fetch();
 
-        /*** check we have a single image and type ***/
+        // check if contains 1 result
         if(sizeof($array) == 2)
             {
-            /*** set the headers and display the image ***/
+            // set headers and display image
             header("Content-type: ".$array['image_type']);
 
-            /*** output the image ***/
+            // print image
             echo $array['image'];
             }
         else
@@ -45,6 +44,7 @@ if(filter_has_var(INPUT_GET, "image_id") !== false && filter_input(INPUT_GET, 'i
             throw new Exception("Out of bounds Error");
             }
         }
+    // catch and filter on error
     catch(PDOException $e)
         {
         echo $e->getMessage();

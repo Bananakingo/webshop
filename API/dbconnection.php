@@ -10,22 +10,28 @@ $db = 'avansperiode3';
 
 function setConnection()
 {
+	// Set connection variabls to global type
 	global $host, $user, $pass, $db;
+	// Create connection string
 	$connection = mysqli_connect($host, $user, $pass, $db) ;
 
-	$status = mysqli_get_links_stats();
-	$connectionstat = mysqli_get_connection_stats($connection);
-
 	if ($connection == false) {
+		// No connection made; check var type, availability and typos
 		printf("Er kan geen verbinding worden gemaakt met de database. Foutmelding: %s\n", mysqli_connect_error());
 	} else {
-		// echo "Verbinding geslaagd | status: <br><br> Link status<br>";
-		// print lines for debugging.
-		// foreach ($status as $x => $y) { "$x: $y <br>"; };
-		// print_r($connection) ;
+		// Return Connection string when the connection is made succesfully
 		return $connection;
 	}
 
+}
+
+// gets arguments used in the connection, used for testing
+function getConnectionParams()
+{
+	global $host, $user, $pass, $db;
+	// add parameters to array and pass trough return function
+	$connectionparams = array('localhost', 'test', 'test123', 'avansperiode3');
+	return $connectionparams;
 }
 
 ?>

@@ -2,48 +2,34 @@
 
 use PHPUnit\Framework\TestCase;
 
-class GetTeamDataTest extends TestCase
+class test_get_data extends TestCase
 {
-    protected $conn;
-
-    protected function setUp(): void
-    {
-        // Dit stukje code is de voorbereiding voor onze test. We beginnen met het opzetten van een verbinding met onze database.
-        // 'Connect.php' is een bestand waar de details voor de verbinding met de database staan.
-        // Tip: Vergeet niet 'Connect.php' aan te passen aan jouw eigen database setup.
-        include '\API\dbconnection.php';
-        $this->conn = setConnection(); // We slaan onze databaseverbinding op in een variabele voor later gebruik.
-    }
-
     public function testGetProduct()
     {
-        // We gaan nu testen of we teamgegevens correct kunnen ophalen met een team ID.
-        $productId = 1; // Dit is het ID van het team dat we willen ophalen.
+        // Product Id dat wordt gebruikt om te testen 
+        $productId = 111; 
         
-        // We roepen een functie aan die de gegevens van het team ophaalt. Dit is de functie die we willen testen.
+        // We halen een het product op en hangen het aan $result
         $result = $this->getProduct($productId);
 
-        // Hieronder gebruiken we 'assertions' om te controleren of de opgehaalde gegevens kloppen.
-        // We verwachten dat de resultaten in de vorm van een array zijn, en dat de inhoud overeenkomt met onze verwachtingen.
+        // Het opgehaalde product in result wordt getest op het zijn van een array
+        // In de volgende 3 stappen testen we het op de data die het bevat
+        // Het moet gelijk zijn aan de data in de functie GetProduct()
         $this->assertIsArray($result, 'De output zou een array moeten zijn');
         $this->assertEquals($productId, $result['productid'], "Het productid komt niet overeen met wat we verwachten");
         $this->assertEquals('OMNIGRIT V1', $result['naam'], "De naam van het product komt niet overeen");
-        $this->assertEquals('Lorem ipsum', $result['Beschrijving'], "We verwachten een dummy omschrijving");
+        $this->assertEquals('Lorem ipsum', $result['beschrijving'], "We verwachten een dummy omschrijving");
     }
 
     protected function getProduct($productId)
     {
-        // Voorgedefinieerde waarde voor tests, simuleert ophalen van tabel uit database
+        // Het testproduct wordt hier gedeclareerd
+        // Dit is op te halen door de functie getProduct() te noemen
         return [
-            "productid" => "1",
-            "categorieid" => "6",
-            "Naam" => "Volkswagen",
-            "Beschrijving" => ""
+            "productid" => "111",
+            "leverbaar" => "ja",
+            "voorraad" => "12",
+            "Beschrijving" => "Lorem ipsum"
         ];
-    }
-
-    protected function tearDown(): void
-    {
-        //Huidige tests maken geen gebruik van een directe databaseverinding
     }
 }

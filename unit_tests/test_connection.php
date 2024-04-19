@@ -1,45 +1,48 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+include 'API\dbconnection.php';
 
-class ConnectTest extends TestCase
+class test_connection extends TestCase
 {
+
     public function testDatabaseConnectionParameters()
     {
-        // We beginnen met het opnemen van het 'connect.php' bestand, dat de databaseconnectieparameters bevat.
-        // Dit is belangrijk om ervoor te zorgen dat de parameters die we gebruiken om te verbinden met de database correct zijn ingesteld.
-        include '\API\dbconnection.php';
 
-        // Vervolgens controleren we of elke parameter - host, gebruikersnaam, wachtwoord, en databasenaam - correct is ingesteld.
-        // Deze waarden zijn cruciaal voor het succesvol verbinden met onze database.
-        $this->assertEquals('localhost', $host, 'De hostnaam is niet correct ingesteld.');
-        $this->assertEquals('root', $username, 'De gebruikersnaam is niet correct ingesteld.');
-        $this->assertEquals('', $password, 'Het wachtwoord is niet correct ingesteld.');
-        $this->assertEquals('avansperiode3', $dbname, 'De databasenaam is niet correct ingesteld.');
+        // get connection parameters
+        // Hiermee gaan we testen of de parameters in de connectie string overeenkomen met de verwachte data.
+        $connectarray = getConnectionParams();
+
+        // Check if the right credentials are used and on the right host and Database
+        $this->assertEquals('localhost', $connectarray[0], 'De hostnaam is niet correct ingesteld.');
+        $this->assertEquals('test', $connectarray[1], 'De gebruikersnaam is niet correct ingesteld.');
+        $this->assertEquals('test123', $connectarray[2], 'Het wachtwoord is niet correct ingesteld.');
+        $this->assertEquals('avansperiode3', $connectarray[3], 'De databasenaam is niet correct ingesteld.');
     }
 
     public function testDatabaseConnection()
     {
-        // Opnieuw, we nemen 'Connect.php' op om onze databaseverbinding op te zetten.
-        include '\API\dbconnection.php';
+        // Get connection parameters
+        $connectarray = getConnectionParams();
 
-        // Nu controleren we of de variabele $conn daadwerkelijk een mysqli-object is.
-        // Dit bevestigt dat onze verbinding met de database een geldig mysqli-object teruggeeft.
-        $this->assertInstanceOf(mysqli::class, setConnection(), 'De verbinding met de database is geen instantie van mysqli.');
+        // Create connection with parameters
+        // Hier gaan we testen of er een verbinding gelegd kan worden met de eerder geteste parameters.
+        $connection = mysqli_connect($connectarray[0], $connectarray[1], $connectarray[2], $connectarray[3]) ;
+        // Controleer ofdat de connectie string van type mysqli is.
+        $this->assertInstanceOf(mysqli::class, $connection, 'De verbinding met de database is geen instantie van mysqli.');
 
-        // We controleren ook of er geen fouten zijn opgetreden tijdens het opzetten van de verbinding.
-        $this->assertNull(setConnection()->connect_error, 'Er is een fout opgetreden bij het opzetten van de databaseverbinding.');
+        // Controleer ofdat de connectie string gevuld is
+        $this->assertNull($connection->connect_error, 'Er is een fout opgetreden bij het opzetten van de databaseverbinding.');
 
-        // Nu gaan we testen of we daadwerkelijk gegevens uit de database kunnen ophalen.
-        // We doen een eenvoudige SELECT-query om wat gegevens op te halen en controleren of we resultaten terugkrijgen.
-        $query = "SELECT * FROM `product` LIMIT 9";
-        $result = setConnection()->query($query);
+        // Haal testset op 
+        $query = "SELECT * FROM `product` LIMIT 6";
+        $result = $connection->query($query);
 
-        // We verwachten resultaten van onze query, en we controleren of het resultaat niet leeg is.
+        // Controleer ofdat uitgevoerde query een leeg resultaat oplevert
         $this->assertNotEmpty($result, 'Er zijn geen resultaten gevonden bij het ophalen van gegevens uit de tabel `product`.');
 
-        // Daarnaast controleren we of het aantal rijen in onze resultaatset ten minste 9 is.
-        $this->assertGreaterThanOrEqual(5, $result->num_rows, 'Er zijn minder dan 9 resultaten gevonden bij het ophalen van gegevens.');
+        // Controleer ofdat de uigevoerde query meer of gelijk als 6 producten ophaalt uit de database
+        $this->assertGreaterThanOrEqual(6, $result->num_rows, 'Er zijn minder dan 6 resultaten gevonden bij het ophalen van gegevens.');
 
     }
 }

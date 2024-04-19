@@ -4,6 +4,7 @@
 
 include 'Controllers/controller.php';
 
+// Used as test to print selected records, not in use
 function printTestRecords($result)
 {
     foreach ($x = mysqli_fetch_assoc($result) as $attribute) {
@@ -18,27 +19,16 @@ function printTestRecords($result)
     }
 }
 
-// function printImage($productId) {
-
-//     $result = getTopImage(setConnection(), $productId);
-
-//     while ( $row = mysqli_fetch_row($result) ) {
-//         return $row["image"];
-//     }
-// }
-
 
 function printProducts($products) // Can also print a single product
 {
     $result = $products;
+
+    // Print products while there is a product to be printed
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<!-- ---------------------------------- -->\n";
         echo "<div id=\"product\">\n<form action=\"add.php\" method=\"post\">\n";
         echo "<input type=\"hidden\" name=\"productnummer\" value=\"".$row["productnummer"]."\" />\n";
-        // echo "<div id=\"prodnummer\">".$row["productnummer"]."</div>\n";
-    
-        echo '<p><img id=\'plaatje\' src="showfile.php?image_id='.$row["image_id"].'"></p>';
-        
         echo "<div id=\"prijs\">€ ".number_format($row["prijs"], 2, ',', '.')."</div>\n";
         echo "<div id=\"prodnaam\">".$row["productnaam"]."</div>\n";
         echo "<div id=\"beschrijving\">".$row["beschrijving"]."</div>\n";
